@@ -6,8 +6,8 @@ require 'spree/adyen/version'
 Gem::Specification.new do |spec|
   spec.name          = "spree-adyen"
   spec.version       = Spree::Adyen::VERSION
-  spec.authors       = ["Washington Luiz"]
-  spec.email         = ["huoxito@gmail.com"]
+  spec.authors       = ["Washington Luiz", "Denis Tierno"]
+  spec.email         = ["huoxito@gmail.com", "contato@locomotiva.pro"]
   spec.description   = "Plugs Adyen Payment Gateway into Spree Stores"
   spec.summary       = "Plugs Adyen Payment Gateway into Spree Stores"
   spec.homepage      = ""
@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'sass-rails', '~> 4.0.2'
   spec.add_development_dependency 'sqlite3'
 
-  spec.add_runtime_dependency "adyen", "~> 1.4.0"
+  spec.add_runtime_dependency "adyen", "~> 1.6.0"
   spec.add_runtime_dependency "spree_core", "~> 3.1.0.beta"
 end

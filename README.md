@@ -47,6 +47,15 @@ persist on your application database.
 Please look into the adyen gem wiki https://github.com/wvanbergen/adyen/wiki and
 Adyen Integration Manual for further info https://www.adyen.com/developers/api/
 
+## Boleto Bancário (Adyen::Billet)
+
+To use this brazilian payment method is required to supply the customer
+cpf (brazilian social security number). By default there is a preference
+`Spree::Adyen::Config[:social_security_method]`  containing a string
+(cpf) with the method name that will be called on user.
+
+If you need a custom method name just override this preference.
+
 ## Testing
 
 The extension contains some specs that will reach out Adyen API the first time
