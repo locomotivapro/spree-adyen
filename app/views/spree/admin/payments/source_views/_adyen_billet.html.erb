@@ -1,0 +1,6 @@
+<% source = payment.source %>
+<%= content_tag :p, "Boleto gerado em: #{I18n.l source.billet_due_at}" %>
+<%= content_tag :p, "Boleto expira em: #{I18n.l source.billet_expire_at}" %>
+<%= button_link_to Spree.t(:billet_link), source.billet_url, target: :_blank, class: 'btn-success btn-billet' %>
+
+<hr />

@@ -1,0 +1,6 @@
+<% if source.respond_to?(:billet_url) && source.billet_url %>
+  <%= content_tag :p, Spree.t(:billet_message), data: { hook: 'billet-message' } %>
+  <%= button_link_to Spree.t(:billet_link), source.billet_url, target: :_blank, class: 'btn-success btn-billet' %>
+<% else %>
+  <%= content_tag(:span, payment.payment_method.name) %>
+<% end %>

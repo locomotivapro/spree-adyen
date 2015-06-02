@@ -1,0 +1,2 @@
+<!-- replace "erb[loud]:contains('content_tag(:span, payment.payment_method.name)')"  -->
+<%= render 'spree/payments/billet', payment: payment, source: source %>
