@@ -10,7 +10,11 @@ module Spree
       end
 
       def self.activate
-        Spree::PermittedAttributes.source_attributes.push :brand_code
+        source_attrs = Spree::PermittedAttributes.source_attributes
+
+        unless source_attrs.include?(:brand_code) && source_attrs.include?(:installments)
+          source_attrs << :brand_code << :installments
+        end
 
         Dir.glob(File.join(File.dirname(__FILE__), '../../app/models/spree/*_decorator.rb')) do |c|
           Rails.configuration.cache_classes ? require(c) : load(c)

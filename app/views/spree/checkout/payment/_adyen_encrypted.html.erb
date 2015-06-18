@@ -2,20 +2,28 @@
   <%= image_tag 'credit_cards/credit_card.gif', :id => 'credit-card-image' %>
 
   <p class="field">
-    <label for="adyen-encrypted-form-holder-name"><%= Spree.t(:name_on_card) %></label><span class="required">*</span><br />
-    <input type="text" size="20" value="<%= "#{@order.billing_firstname} #{@order.billing_lastname}" %>" autocomplete="off" data-encrypted-name="holderName" />
+  <label for="adyen-encrypted-form-holder-name"><%= Spree.t(:name_on_card) %></label><span class="required">*</span><br />
+  <input type="text" size="20" value="<%= "#{@order.billing_firstname} #{@order.billing_lastname}" %>" autocomplete="off" data-encrypted-name="holderName" />
   </p>
 
   <p class="field">
-    <label for="adyen-encrypted-form-number"><%= Spree.t(:card_number) %></label><span class="required">*</span><br />
-    <input type="text" class="required cardNumber" size="19" autocomplete="off" data-encrypted-name="number" />
-    &nbsp;
-    <span id="card_type" style="display:none;">
-      ( <span id="looks_like" ><%= Spree.t(:card_type_is) %> <span id="type"></span></span>
-        <span id="unrecognized"><%= Spree.t(:unrecognized_card_type) %></span>
-      )
-    </span>
+  <label for="adyen-encrypted-form-number"><%= Spree.t(:card_number) %></label><span class="required">*</span><br />
+  <input type="text" class="required cardNumber" size="19" autocomplete="off" data-encrypted-name="number" />
+  &nbsp;
+  <span id="card_type" style="display:none;">
+    ( <span id="looks_like" ><%= Spree.t(:card_type_is) %> <span id="type"></span></span>
+    <span id="unrecognized"><%= Spree.t(:unrecognized_card_type) %></span>
+    )
+  </span>
   </p>
+
+  <% installments = payment_method.preferred_max_installments %>
+  <% if installments %>
+  <p class="field">
+    <%= label_tag "installments", Spree.t(:installments) %><span class="required">*</span><br />
+    <%= select_tag "payment_source[#{payment_method.id}][installments]", options_for_select(1..installments.to_i) %>
+  </p>
+  <% end %>
 
   <p class="field">
     <%= label_tag "card_expiry", Spree.t(:expiration) %><span class="required">*</span><br />
@@ -24,9 +32,9 @@
   </p>
 
   <p class="field">
-    <label for="adyen-encrypted-form-number"><%= Spree.t(:card_code) %></label><span class="required">*</span><br />
-    <input type="text" size="4" autocomplete="off" data-encrypted-name="cvc" />
-    <%= link_to "(#{Spree.t(:what_is_this)})", spree.content_path('cvv'), :target => '_blank', "data-hook" => "cvv_link", :id => "cvv_link" %>
+  <label for="adyen-encrypted-form-number"><%= Spree.t(:card_code) %></label><span class="required">*</span><br />
+  <input type="text" size="4" autocomplete="off" data-encrypted-name="cvc" />
+  <%= link_to "(#{Spree.t(:what_is_this)})", spree.content_path('cvv'), :target => '_blank', "data-hook" => "cvv_link", :id => "cvv_link" %>
   </p>
 
   <input type="hidden" id="adyen-encrypted-form-expiry-generationtime" value="<%= DateTime.current() %>" data-encrypted-name="generationtime" />
@@ -34,12 +42,12 @@
 
 <%= javascript_include_tag "adyen.encrypt.js" %>
 
-<script>    
-    var form = document.getElementById('checkout_form_payment');    
-    var key = "<%= payment_method.options[:public_key] %>";
-    var options = {
-      'name': "<%= "payment_source[#{payment_method.id}][encrypted_data]" %>"
-    }; 
-    // the form will be encrypted before it is submitted
-    adyen.encrypt.createEncryptedForm(form, key, options);
+<script>
+  var form = document.getElementById('checkout_form_payment');
+  var key = "<%= payment_method.options[:public_key] %>";
+  var options = {
+    'name': "<%= "payment_source[#{payment_method.id}][encrypted_data]" %>"
+  };
+  // the form will be encrypted before it is submitted
+  adyen.encrypt.createEncryptedForm(form, key, options);
 </script>

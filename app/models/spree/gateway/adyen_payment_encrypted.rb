@@ -19,14 +19,15 @@ module Spree
     def authorize(amount, source, gateway_options = {})
 
       card = { encrypted: { json: source.encrypted_data } }
+      options = { installments: { value: source.installments } }
 
       # TODO: Make me conditional. Recurring must be true if payment profiles supported
-      response = authorize_on_card amount, source, gateway_options, card, { recurring: true }
-      
+      response = authorize_on_card amount, source, gateway_options, card, options
+
       # TODO: MOve this to additional_params method to Adyen::API::AuthorisationResponse and merge in params method. 
       # NOTE: Iterate through entry elements nested in the additionalData element of the response (see SOAP Envelope)
       last_digits = response.xml_querier.xpath('//payment:authoriseResponse/payment:paymentResult').text('./payment:additionalData/payment:entry/payment:value')
-      
+
       # Ensure that this is enabled if using Encrypted Gateway and Payment Profiles supported
       if last_digits.blank? && payment_profiles_supported?
         Exception.new('Please request last digits to be sent back in Adyen response to support payment profiles')

@@ -74,7 +74,7 @@ class AdyenNotification < ActiveRecord::Base
 
   alias_method :successful_authorization?, :successful_authorisation?
 
-# Invalidate payments that doesnt receive a successful notification
+  # Invalidate payments that doesnt receive a successful notification
   def handle!
 
     if (authorisation? || capture?)
@@ -98,7 +98,7 @@ class AdyenNotification < ActiveRecord::Base
   def store_profile_from_alias(payment)
     payment.source.update_attribute :gateway_customer_profile_id, additional_data_alias
   end
-  
+
   def capture_available?
     !!operations['CAPTURE']
   end

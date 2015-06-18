@@ -1,5 +1,6 @@
 pt-BR:
   spree:
+    installments: Parcelas
     billet_message: Clique no botão abaixo para obter seu boleto
     billet_link: Baixar Boleto
     billet_reference: Pedido #
