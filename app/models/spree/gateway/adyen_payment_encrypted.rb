@@ -4,6 +4,14 @@ module Spree
 
     preference :public_key, :string
 
+    def cancel(response_code)
+      payment = Spree::Payment.find_by response_code: response_code
+      amount = (payment.amount.to_f * 100).to_i
+      options = { currency: Spree::Config[:currency] }
+
+      credit(amount, nil, response_code, options)
+    end
+
     def auto_capture?
       false
     end

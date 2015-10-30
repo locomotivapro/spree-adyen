@@ -23,6 +23,13 @@ module Spree
       %w{capture void authorize}
     end
 
+    def cancel(response_code)
+      payment = Spree::Payment.find_by response_code: response_code
+      payment.void
+    rescue
+      true
+    end
+
     # Indicates whether its possible to void the payment.
     def can_void?(payment)
       !payment.void?
