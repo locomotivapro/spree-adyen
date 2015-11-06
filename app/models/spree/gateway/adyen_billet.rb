@@ -59,7 +59,7 @@ module Spree
       user = Spree.user_class.find(gateway_options[:customer_id])
 
       social_security_number = user.send(ss_method)
-      delivery_date = (Time.now + self.preferences[:due_days]).utc.iso8601
+      delivery_date = (Time.now + self.preferences[:due_days].days).utc.iso8601
 
       response = provider.generate_billet reference, amount, shopper_name, social_security_number, self.preferences[:bank_brand], delivery_date
 
