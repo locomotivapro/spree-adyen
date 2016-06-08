@@ -1,6 +1,5 @@
 require "spree/adyen/version"
 require "adyen"
-require "adyen/api/installments_request"
 require "spree_core"
 require "spree/adyen/engine"
 require "spree/adyen/checkout_rescue"
