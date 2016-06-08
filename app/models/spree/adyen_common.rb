@@ -210,11 +210,7 @@ module Spree
         elsif recurring_detail_reference.present?
           provider.authorise_recurring_payment reference, amount, shopper, recurring_detail_reference
         else
-          if options.has_key? :installments
-            provider.authorise_payment_with_installments reference, amount, shopper, card, options[:installments]
-          else
-            provider.authorise_payment reference, amount, shopper, card, options
-          end
+          provider.authorise_payment reference, amount, shopper, card, options
         end
       end
 

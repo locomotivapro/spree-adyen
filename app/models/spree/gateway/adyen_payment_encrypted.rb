@@ -25,9 +25,19 @@ module Spree
     end
 
     def authorize(amount, source, gateway_options = {})
-
       card = { encrypted: { json: source.encrypted_data } }
-      options = { installments: { value: source.installments } }
+      ship_address = gateway_options[:shipping_address]
+
+      options = {
+        installments: { value: source.installments },
+        delivery_address: {
+          city: ship_address[:city],
+          country: ship_address[:country],
+          postal_code: ship_address[:zip],
+          state_or_province: ship_address[:state],
+          street: "#{ship_address[:address1]} #{ship_address[:address2]}"
+        }
+      }
 
       # TODO: Make me conditional. Recurring must be true if payment profiles supported
       response = authorize_on_card amount, source, gateway_options, card, options

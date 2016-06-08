@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 
-gem 'adyen', github: 'huoxito/adyen', branch: 'enhanced'
+gem 'adyen', github: 'locomotivapro/adyen', branch: 'master'
 gem 'pry-rails'
 
 gem 'vcr'
