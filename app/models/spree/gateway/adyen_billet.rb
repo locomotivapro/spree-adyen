@@ -26,8 +26,11 @@ module Spree
     def cancel(response_code)
       payment = Spree::Payment.find_by response_code: response_code
       payment.void
-    rescue
-      true
+      
+      response = Object.new
+      def response.success?; true; end
+      def response.authorization; nil; end
+      response
     end
 
     # Indicates whether its possible to void the payment.
