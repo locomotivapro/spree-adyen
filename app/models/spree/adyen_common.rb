@@ -190,7 +190,7 @@ module Spree
           def response.cvv_result; { 'code' => result_code }; end
         else
           def response.to_s
-            "#{result_code} - #{refusal_reason}"
+            Spree.t(:problems_with_card_please_review)
           end
         end
 
